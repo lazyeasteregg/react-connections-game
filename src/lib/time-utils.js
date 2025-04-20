@@ -28,18 +28,17 @@ const DAILY_PUZZLE_EPOCH = 1696838400000; // Tuesday, October 10, 2023 00:00:00
  * @param {string} queryParam - The query parameter string (e.g., "?p=1").
  * @returns {number} The puzzle number.
  */
-export const getPuzzleNumber = (date = new Date(), queryParam = "") => {
-  let puzzleNumber = Math.floor((date.getTime() - DAILY_PUZZLE_EPOCH) / (1000 * 60 * 60 * 24));
-
-  if (queryParam) {
-    const pValue = new URLSearchParams(queryParam).get("p");
-    if (pValue) {
-      const parsedPValue = parseInt(pValue, 10);
-      if (!isNaN(parsedPValue) && parsedPValue > 0) {
-        puzzleNumber = parsedPValue - 1; // Adjust to be 0-indexed
-      }
+export const getPuzzleNumber = (date = new Date()) => {
+  let puzzleNumber = differenceInDays(date, firstGameDate);
+  const queryParams = new URLSearchParams(window.location.search)
+  if (queryParams.get("p")) {
+    const parsedPValue = parseInt(queryParams.get("p"), 10);
+    console.log(parsedPValue)
+    if (!isNaN(parsedPValue) && parsedPValue > 0) {
+      puzzleNumber = parsedPValue - 1; // Adjust to be 0-indexed
     }
   }
+  console.debug(`Puzzle number: ${puzzleNumber}`)
   return puzzleNumber;
 };
 
@@ -117,7 +116,7 @@ export const getSolution = (gameDate) => {
    // const cacheBuster = `?cb=${Date.now()}`;  // Use current timestamp as cache buster.
    // return new Date(nextGameDate.getTime() + cacheBuster); //error:  An argument of type 'string | number' is not assignable to parameter of type 'number'.
 //};
-  const index = getIndex(gameDate);
+  const index = getPuzzleNumber(gameDate);
   const puzzleOfTheDay = getPuzzleOfDay(index);
   console.log("index for today: ", index);
   return {
