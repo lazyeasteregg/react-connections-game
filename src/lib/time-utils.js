@@ -7,7 +7,7 @@ const DAILY_PUZZLE_EPOCH = 1696838400000; // Tuesday, October 10, 2023 00:00:00
  * @param {Date} date - The date for which to calculate the puzzle number.
  * @returns {number} The puzzle number.
  */
-export const getPuzzleNumber = (date: Date = new Date()): number => {
+export const getPuzzleNumber = (date) => {
   const diffInMinutes = Math.floor((date.getTime() - DAILY_PUZZLE_EPOCH) / (1000 * 60 * 15));
   return diffInMinutes;
 };
@@ -17,7 +17,7 @@ export const getPuzzleNumber = (date: Date = new Date()): number => {
  * @param {number} puzzleNumber - The puzzle number.
  * @returns {Date} The start time of the puzzle.
  */
-export const getPuzzleStartTime = (puzzleNumber: number): Date => {
+export const getPuzzleStartTime = (puzzleNumber) => {
     return addMinutes(new Date(DAILY_PUZZLE_EPOCH), puzzleNumber * 15);
 };
 
@@ -26,7 +26,7 @@ export const getPuzzleStartTime = (puzzleNumber: number): Date => {
  * @param {Date} date - The date to format.
  * @returns {string} The formatted date string.
  */
-export const getFormattedDate = (date: Date = new Date()): string => {
+export const getFormattedDate = (date) => {
   return format(date, 'yyyy-MM-dd');
 };
 
@@ -35,6 +35,10 @@ export const getFormattedDate = (date: Date = new Date()): string => {
  * @param {Date} date - the date
  * @returns {Date} the end of the day
  */
-export const getEndOfDay = (date: Date = new Date()): Date => {
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+export const getEndOfDay = (date) => {
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23);
+    endOfDay.setMinutes(59);
+    endOfDay.setSeconds(59);
+    return endOfDay;
 }
