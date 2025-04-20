@@ -29,7 +29,7 @@ export const getLastGameDate = (today) => {
 
 export const getNextGameDate = (today) => {
  // return addDays(getLastGameDate(today), periodInDays);
-  return addMinutes(getLastGameDate(today), 2);
+  return addMinutes(today, 2);
 };
 
 export const isValidGameDate = (date) => {
