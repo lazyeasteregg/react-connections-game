@@ -116,7 +116,7 @@ export const getSolution = (gameDate) => {
    // const nextGameDate = addDays(startOfDay(currentDate), 1);
    // const cacheBuster = `?cb=${Date.now()}`;  // Use current timestamp as cache buster.
    // return new Date(nextGameDate.getTime() + cacheBuster); //error:  An argument of type 'string | number' is not assignable to parameter of type 'number'.
-};
+//};
   const index = getIndex(gameDate);
   const puzzleOfTheDay = getPuzzleOfDay(index);
   console.log("index for today: ", index);
